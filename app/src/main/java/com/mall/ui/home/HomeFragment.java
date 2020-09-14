@@ -68,9 +68,9 @@ public class HomeFragment extends BaseFragment<ImodelHome.IPersenter> implements
                     case HomeBean.ITEM_TYPE_TITLE:
                     case HomeBean.ITEM_TYPE_TITLETOP:
                     case HomeBean.ITEM_TYPE_TOPIC:
+                    case HomeBean.ITEM_TYPE_HOT:
                         return 2;
                     case HomeBean.ITEM_TYPE_BRAND:
-                    case HomeBean.ITEM_TYPE_HOT:
                     case HomeBean.ITEM_TYPE_NEW:
                     case HomeBean.ITEM_TYPE_CATEGORY:
                         return 1;

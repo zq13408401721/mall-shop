@@ -51,10 +51,10 @@ public class HomePresenter extends BasePersenter<ImodelHome.IView> implements Im
                         list.add(title2);
                         //新品首发数据封装
                         for (int i=0; i<homeBean.getData().getNewGoodsList().size(); i++){
-                            HomeBean.HomeListBean brand = new HomeBean.HomeListBean();
-                            brand.currentType = HomeBean.ITEM_TYPE_NEW;
-                            brand.data = homeBean.getData().getNewGoodsList().get(i);
-                            list.add(brand);
+                            HomeBean.HomeListBean newGood = new HomeBean.HomeListBean();
+                            newGood.currentType = HomeBean.ITEM_TYPE_NEW;
+                            newGood.data = homeBean.getData().getNewGoodsList().get(i);
+                            list.add(newGood);
                         }
                         //人气推荐
                         HomeBean.HomeListBean title3 = new HomeBean.HomeListBean();
@@ -63,21 +63,21 @@ public class HomePresenter extends BasePersenter<ImodelHome.IView> implements Im
                         list.add(title3);
                         //人气推荐数据
                         for (int i=0; i<homeBean.getData().getHotGoodsList().size(); i++){
-                            HomeBean.HomeListBean brand = new HomeBean.HomeListBean();
-                            brand.currentType = HomeBean.ITEM_TYPE_HOT;
-                            brand.data = homeBean.getData().getHotGoodsList().get(i);
-                            list.add(brand);
+                            HomeBean.HomeListBean hot = new HomeBean.HomeListBean();
+                            hot.currentType = HomeBean.ITEM_TYPE_HOT;
+                            hot.data = homeBean.getData().getHotGoodsList().get(i);
+                            list.add(hot);
                         }
                         //专题精选
                         HomeBean.HomeListBean title4 = new HomeBean.HomeListBean();
                         title4.currentType = HomeBean.ITEM_TYPE_TITLETOP;
                         title4.data = "专题精选";
                         list.add(title4);
-                        //人气推荐数据
-                        HomeBean.HomeListBean brand = new HomeBean.HomeListBean();
-                        brand.currentType = HomeBean.ITEM_TYPE_TOPIC;
-                        brand.data = homeBean.getData().getTopicList();
-                        list.add(brand);
+                        //专题精选数据
+                        HomeBean.HomeListBean topic = new HomeBean.HomeListBean();
+                        topic.currentType = HomeBean.ITEM_TYPE_TOPIC;
+                        topic.data = homeBean.getData().getTopicList();
+                        list.add(topic);
                         /*for (int i=0; i<homeBean.getData().getTopicList().size(); i++){
                             HomeBean.HomeListBean brand = new HomeBean.HomeListBean();
                             brand.currentType = HomeBean.ITEM_TYPE_TOPIC;

@@ -76,8 +76,6 @@ dependencies {
     //剪切
     implementation 'com.soundcloud.android:android-crop:1.0.1@aar'
 
-    //banner
-    implementation 'com.youth.banner:banner:1.4.10'
     //RecyclerView Adapter
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.42'
 

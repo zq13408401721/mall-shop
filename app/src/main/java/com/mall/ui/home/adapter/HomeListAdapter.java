@@ -9,21 +9,30 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.mall.R;
 import com.mall.bean.HomeBean;
 import com.mall.utils.SystemUtils;
 import com.youth.banner.Banner;
+import com.youth.banner.adapter.BannerImageAdapter;
+import com.youth.banner.holder.BannerImageHolder;
+import com.youth.banner.indicator.CircleIndicator;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeListAdapter extends BaseMultiItemQuickAdapter<HomeBean.HomeListBean, BaseViewHolder> {
+public class HomeListAdapter extends BaseMultiItemQuickAdapter<HomeBean.HomeListBean, BaseViewHolder> implements
+        LifecycleOwner {
 
     private Context context;
     private String priceWord;
@@ -108,9 +117,20 @@ public class HomeListAdapter extends BaseMultiItemQuickAdapter<HomeBean.HomeList
                 imgs.add(item.getImage_url());
             }
             banner.setTag(1);
-            /*banner.setImageLoader(new GlideImageLoader());
-            banner.setImages(imgs);*/
-            banner.start();
+            banner.setAdapter(new BannerImageAdapter<String>(imgs) {
+
+
+                @Override
+                public void onBindView(BannerImageHolder holder, String data, int position, int size) {
+                    Glide.with(holder.itemView)
+                            .load(data)
+                            .apply(RequestOptions.bitmapTransform(new RoundedCorners(30)))
+                            .into(holder.imageView);
+                }
+
+            })
+            //.addBannerLifecycleObserver(this)
+            .setIndicator(new CircleIndicator(context));
         }
     }
 
@@ -129,6 +149,7 @@ public class HomeListAdapter extends BaseMultiItemQuickAdapter<HomeBean.HomeList
                 int size = SystemUtils.dp2px(context,14);
                 tab.setTextSize(size);
                 tab.setGravity(Gravity.CENTER);
+                tab.setText(item.getName());
                 Drawable icon = context.getDrawable(R.mipmap.ic_channel1);
                 tab.setCompoundDrawables(null,icon,null,null);
                 layoutChannels.addView(tab);
@@ -175,7 +196,9 @@ public class HomeListAdapter extends BaseMultiItemQuickAdapter<HomeBean.HomeList
         RecyclerView recyclerView = viewHolder.getView(R.id.recyclerviewTopic);
         if(topicAdapter == null){
             topicAdapter = new TopicAdapter(context,topicGoods);
-            recyclerView.setLayoutManager(new LinearLayoutManager(context));
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
+            linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+            recyclerView.setLayoutManager(linearLayoutManager);
             recyclerView.setAdapter(topicAdapter);
         }else if(recyclerView.getAdapter() == null){
             recyclerView.setAdapter(topicAdapter);
@@ -183,4 +206,9 @@ public class HomeListAdapter extends BaseMultiItemQuickAdapter<HomeBean.HomeList
     }
 
 
+    @NonNull
+    @Override
+    public Lifecycle getLifecycle() {
+        return null;
+    }
 }

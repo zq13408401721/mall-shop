@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingTop="@dimen/dp_30"
+    android:paddingBottom="@dimen/dp_30">
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="#ccc"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_5"/>
+
+    <ImageView
+        android:id="@+id/img_hot"
+        android:layout_width="@dimen/dp_100"
+        android:layout_height="@dimen/dp_100"
+        android:scaleType="centerCrop"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:src="@mipmap/ic_launcher"
+        android:layout_marginLeft="@dimen/dp_30"/>
+    <TextView
+        android:id="@+id/txt_hot_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/dp_18"
+        android:layout_marginLeft="@dimen/dp_10"
+        app:layout_constraintTop_toTopOf="@id/img_hot"
+        app:layout_constraintLeft_toRightOf="@id/img_hot"
+        android:text="商品"/>
+    <TextView
+        android:id="@+id/txt_hot_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/dp_18"
+        android:layout_marginLeft="@dimen/dp_10"
+        app:layout_constraintTop_toTopOf="@id/img_hot"
+        app:layout_constraintBottom_toBottomOf="@id/img_hot"
+        app:layout_constraintLeft_toRightOf="@id/img_hot"
+        android:text="商品"
+        android:textColor="#D6D5D5"/>
+    <TextView
+        android:id="@+id/txt_hot_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/dp_12"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_10"
+        app:layout_constraintBottom_toBottomOf="@id/img_hot"
+        app:layout_constraintLeft_toRightOf="@id/img_hot"
+        android:text="￥9.99"
+        android:textColor="#ff0000"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

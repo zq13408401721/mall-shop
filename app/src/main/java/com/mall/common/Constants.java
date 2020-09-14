@@ -8,7 +8,7 @@ import java.io.File;
 
 public class Constants {
 
-    public static final String Base_Url = "http://169.254.96.147:8085/";
+    public static final String Base_Url = "http://cdwan.cn/api/";
 
     public static final String Base_UserUrl = "http://192.168.43.220:9001/"; //用户信息相关的基础地址
 

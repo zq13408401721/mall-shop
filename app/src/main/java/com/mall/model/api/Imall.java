@@ -10,7 +10,7 @@ import retrofit2.http.GET;
 
 public interface Imall {
 
-    @GET("home/content")
+    @GET("index")
     Flowable<HomeBean> getHomeContent();
 
 }

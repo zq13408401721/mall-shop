@@ -1,5 +1,8 @@
 package com.mall.ui.home;
 
+import android.content.Intent;
+import android.view.View;
+
 import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -13,6 +16,7 @@ import com.mall.bean.HomeBean;
 import com.mall.interfaces.IBasePersenter;
 import com.mall.interfaces.home.ImodelHome;
 import com.mall.persenter.home.HomePresenter;
+import com.mall.ui.cart.DetailGoodActivity;
 import com.mall.ui.home.adapter.HomeListAdapter;
 
 import java.util.ArrayList;
@@ -81,6 +85,33 @@ public class HomeFragment extends BaseFragment<ImodelHome.IPersenter> implements
         });
         recyclerview.setLayoutManager(gridLayoutManager);
         homeListAdapter.bindToRecyclerView(recyclerview);
+        homeListAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                int type = list.get(position).currentType;
+                Intent intent = new Intent();
+                switch (type){
+                    case HomeBean.ITEM_TYPE_BANNER:
+                        break;
+                    case HomeBean.ITEM_TYPE_BRAND:
+                        break;
+                    case HomeBean.ITEM_TYPE_HOT:
+                        HomeBean.DataBean.HotGoodsListBean bean = (HomeBean.DataBean.HotGoodsListBean) list.get(position).data;
+                        intent.putExtra("id",bean.getId());
+                        intent.setClass(context, DetailGoodActivity.class);
+                        startActivity(intent);
+                        break;
+                    case HomeBean.ITEM_TYPE_TITLE:
+                        break;
+                    case HomeBean.ITEM_TYPE_TITLETOP:
+                        break;
+                    case HomeBean.ITEM_TYPE_TOPIC:
+                        break;
+                    case HomeBean.ITEM_TYPE_CATEGORY:
+                        break;
+                }
+            }
+        });
 
     }
 

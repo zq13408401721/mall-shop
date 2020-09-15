@@ -84,6 +84,21 @@ public class HomePresenter extends BasePersenter<ImodelHome.IView> implements Im
                             brand.data = homeBean.getData().getTopicList().get(i);
                             list.add(brand);
                         }*/
+                        //解析商品数据
+                        for(HomeBean.DataBean.CategoryListBean item:homeBean.getData().getCategoryList()){
+                            //标题
+                            HomeBean.HomeListBean title = new HomeBean.HomeListBean();
+                            title.currentType = HomeBean.ITEM_TYPE_TITLETOP;
+                            title.data = item.getName();
+                            list.add(title);
+                            for(HomeBean.DataBean.CategoryListBean.GoodsListBean good:item.getGoodsList()){
+                                HomeBean.HomeListBean goodBean = new HomeBean.HomeListBean();
+                                goodBean.currentType = HomeBean.ITEM_TYPE_CATEGORY;
+                                goodBean.data = good;
+                                list.add(goodBean);
+                            }
+                        }
+
                         return list;
                     }
                 })

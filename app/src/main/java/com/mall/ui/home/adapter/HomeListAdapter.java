@@ -54,10 +54,11 @@ public class HomeListAdapter extends BaseMultiItemQuickAdapter<HomeBean.HomeList
         addItemType(HomeBean.ITEM_TYPE_BRAND,R.layout.layout_home_brand);
         addItemType(HomeBean.ITEM_TYPE_TITLE,R.layout.layout_title);
         addItemType(HomeBean.ITEM_TYPE_NEW,R.layout.layout_home_newgood);
-        addItemType(HomeBean.ITEM_TYPE_TITLETOP,R.layout.layout_title_top);
+        //addItemType(HomeBean.ITEM_TYPE_TITLETOP,R.layout.layout_title_top);
         addItemType(HomeBean.ITEM_TYPE_HOT,R.layout.layout_home_hot);
-        addItemType(HomeBean.ITEM_TYPE_TITLETOP,R.layout.layout_title_top);
+        //addItemType(HomeBean.ITEM_TYPE_TITLETOP,R.layout.layout_title_top);
         addItemType(HomeBean.ITEM_TYPE_TOPIC,R.layout.layout_home_topiclist);
+        //
     }
 
     /**
@@ -91,6 +92,9 @@ public class HomeListAdapter extends BaseMultiItemQuickAdapter<HomeBean.HomeList
                 break;
             case HomeBean.ITEM_TYPE_TOPIC:
                 updateTopic(helper, (List<HomeBean.DataBean.TopicListBean>) item.data);
+                break;
+            case HomeBean.ITEM_TYPE_CATEGORY:
+                updateCategory(helper, (HomeBean.DataBean.CategoryListBean.GoodsListBean) item.data);
                 break;
         }
     }
@@ -184,7 +188,12 @@ public class HomeListAdapter extends BaseMultiItemQuickAdapter<HomeBean.HomeList
      * 刷新人气数据
      */
     private void udpateHot(BaseViewHolder viewHolder, HomeBean.DataBean.HotGoodsListBean hotGoods){
-
+        if(!TextUtils.isEmpty(hotGoods.getList_pic_url())){
+            Glide.with(context).load(hotGoods.getList_pic_url()).into((ImageView) viewHolder.getView(R.id.img_hot));
+        }
+        viewHolder.setText(R.id.txt_hot_name,hotGoods.getName());
+        viewHolder.setText(R.id.txt_hot_title,hotGoods.getGoods_brief());
+        viewHolder.setText(R.id.txt_hot_price,String.valueOf(hotGoods.getRetail_price()));
     }
 
     /**
@@ -205,6 +214,15 @@ public class HomeListAdapter extends BaseMultiItemQuickAdapter<HomeBean.HomeList
         }
     }
 
+
+    /**
+     * 更新商品数据
+     * @param viewHolder
+     * @param good
+     */
+    private void updateCategory(BaseViewHolder viewHolder, HomeBean.DataBean.CategoryListBean.GoodsListBean good){
+
+    }
 
     @NonNull
     @Override

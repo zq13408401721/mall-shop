@@ -4,4 +4,19 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="word_price_brand">$元起</string>
+    <string name="good_detail_h5">
+        <html>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+            <head>
+                <style>
+                    p{
+                        margin:0px;
+                    }
+                </style>
+            </head>
+            <body>
+                $
+            </body>
+        </html>
+    </string>
 </resources>

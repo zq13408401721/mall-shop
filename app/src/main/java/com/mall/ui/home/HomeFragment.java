@@ -1,6 +1,7 @@
 package com.mall.ui.home;
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.Nullable;
@@ -126,9 +127,11 @@ public class HomeFragment extends BaseFragment<ImodelHome.IPersenter> implements
         persenter.getHomeData();
     }
 
+    private static final String TAG = "HomeFragment";
     @Override
     public void getHomeDataReturn(List<HomeBean.HomeListBean> result) {
+        Log.d(TAG, "getHomeDataReturn: "+result.size());
         list.addAll(result);
         homeListAdapter.notifyDataSetChanged();
-    }
+}
 }

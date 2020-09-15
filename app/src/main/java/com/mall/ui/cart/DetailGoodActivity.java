@@ -76,6 +76,10 @@ public class DetailGoodActivity extends BaseActivity<ICart.IPersenter> implement
             "                    p{\n" +
             "                        margin:0px;\n" +
             "                    }\n" +
+            "                    img{\n" +
+            "                        width:100%;\n" +
+            "                        height:auto;\n" +
+            "                    }\n" +
             "                </style>\n" +
             "            </head>\n" +
             "            <body>\n" +
@@ -176,7 +180,9 @@ public class DetailGoodActivity extends BaseActivity<ICart.IPersenter> implement
         if(!TextUtils.isEmpty(infoBean.getGoods_desc())){
             String h5 = infoBean.getGoods_desc();
             html = html.replace("$",h5);
-            webView.loadData(html,"text/html","utf-8");
+
+            webView.loadDataWithBaseURL("about:blank",html,"text/html","utf-8",null);
+            //webView.loadData(html,"text/html","utf-8");
         }
     }
 }

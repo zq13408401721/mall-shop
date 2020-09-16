@@ -177,8 +177,9 @@
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
     <LinearLayout
+        android:id="@+id/layout_bottom"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_60"
+        android:layout_height="@dimen/dp_80"
         android:orientation="horizontal"
         android:layout_alignParentBottom="true"
         android:background="#ffffff">

@@ -2,12 +2,16 @@ package com.mall.ui.cart;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Display;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -19,9 +23,10 @@ import com.bumptech.glide.request.RequestOptions;
 import com.mall.R;
 import com.mall.base.BaseActivity;
 import com.mall.bean.GoodDetailBean;
-import com.mall.bean.HomeBean;
+import com.mall.common.CartCustomView;
 import com.mall.interfaces.cart.ICart;
 import com.mall.persenter.cart.CartPersenter;
+import com.mall.utils.SystemUtils;
 import com.youth.banner.Banner;
 import com.youth.banner.adapter.BannerImageAdapter;
 import com.youth.banner.holder.BannerImageHolder;
@@ -68,6 +73,8 @@ public class DetailGoodActivity extends BaseActivity<ICart.IPersenter> implement
     RelativeLayout layoutCart;
     @BindView(R.id.txt_buy)
     TextView txtBuy;
+    @BindView(R.id.layout_bottom)
+    LinearLayout layoutBottom;
 
     private String html = "<html>\n" +
             "            <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no\"/>\n" +
@@ -86,7 +93,7 @@ public class DetailGoodActivity extends BaseActivity<ICart.IPersenter> implement
             "                $\n" +
             "            </body>\n" +
             "        </html>";
-
+    private PopupWindow mPopWindow;
 
 
     @Override
@@ -96,7 +103,12 @@ public class DetailGoodActivity extends BaseActivity<ICart.IPersenter> implement
 
     @Override
     protected void initView() {
-
+        layoutNorms.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showPopWindow();
+            }
+        });
     }
 
     @Override
@@ -115,10 +127,10 @@ public class DetailGoodActivity extends BaseActivity<ICart.IPersenter> implement
         //banner刷新
         updateBanner(result.getData().getGallery());
         //评论
-        if(result.getData().getComment().getCount() > 0){
+        if (result.getData().getComment().getCount() > 0) {
             layoutComment.setVisibility(View.VISIBLE);
             updateComment(result.getData().getComment());
-        }else{
+        } else {
             layoutComment.setVisibility(View.GONE);
         }
         //设置参数
@@ -128,12 +140,11 @@ public class DetailGoodActivity extends BaseActivity<ICart.IPersenter> implement
     }
 
 
-
     /**
      * 刷新banner
      */
-    private void updateBanner(List<GoodDetailBean.DataBeanX.GalleryBean> gallery){
-        if(banner.getTag() == null || (int)banner.getTag() == 0){
+    private void updateBanner(List<GoodDetailBean.DataBeanX.GalleryBean> gallery) {
+        if (banner.getTag() == null || (int) banner.getTag() == 0) {
             List<String> imgs = new ArrayList<>();
             for (GoodDetailBean.DataBeanX.GalleryBean item : gallery) {
                 imgs.add(item.getImg_url());
@@ -158,31 +169,73 @@ public class DetailGoodActivity extends BaseActivity<ICart.IPersenter> implement
 
     /**
      * 刷新评论
+     *
      * @param commentBean
      */
-    private void updateComment(GoodDetailBean.DataBeanX.CommentBean commentBean){
+    private void updateComment(GoodDetailBean.DataBeanX.CommentBean commentBean) {
 
     }
 
     /**
      * 刷新参数的布局
+     *
      * @param attributeBean
      */
-    private void updateParameter(List<GoodDetailBean.DataBeanX.AttributeBean> attributeBean){
+    private void updateParameter(List<GoodDetailBean.DataBeanX.AttributeBean> attributeBean) {
         layoutParameter.removeAllViews(); //清空
-        for(GoodDetailBean.DataBeanX.AttributeBean item:attributeBean){
-            View view = LayoutInflater.from(this).inflate(R.layout.layout_parameter,null);
+        for (GoodDetailBean.DataBeanX.AttributeBean item : attributeBean) {
+            View view = LayoutInflater.from(this).inflate(R.layout.layout_parameter, null);
             layoutParameter.addView(view);
         }
     }
 
     private void updateDetailInfo(GoodDetailBean.DataBeanX.InfoBean infoBean) {
-        if(!TextUtils.isEmpty(infoBean.getGoods_desc())){
+        if (!TextUtils.isEmpty(infoBean.getGoods_desc())) {
             String h5 = infoBean.getGoods_desc();
-            html = html.replace("$",h5);
+            html = html.replace("$", h5);
 
-            webView.loadDataWithBaseURL("about:blank",html,"text/html","utf-8",null);
+            webView.loadDataWithBaseURL("about:blank", html, "text/html", "utf-8", null);
             //webView.loadData(html,"text/html","utf-8");
         }
     }
+
+    /**
+     * 设置弹框
+     */
+    private void showPopWindow() {
+        if(mPopWindow != null && mPopWindow.isShowing()){
+
+        }else{
+            View contentView = LayoutInflater.from(this).inflate(R.layout.layout_popwindow_good, null);
+            int height = SystemUtils.dp2px(this,250);
+            mPopWindow = new PopupWindow(contentView, LinearLayout.LayoutParams.MATCH_PARENT,height);
+            mPopWindow.setFocusable(true);
+            mPopWindow.setOutsideTouchable(true);
+            mPopWindow.setContentView(contentView);
+            contentView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+            CartCustomView cartCustomView = contentView.findViewById(R.id.layout_cartwindow);
+            TextView txtClose = contentView.findViewById(R.id.txt_close);
+            txtClose.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mPopWindow.dismiss();
+                    mPopWindow = null;
+                }
+            });
+            int[] pt = new int[2];
+            //获取到的屏幕宽高(除开了当前组件的宽高）
+            layoutBottom.getLocationInWindow(pt);
+            // Display display = getWindowManager().getDefaultDisplay();
+            // int activityheight = display.getHeight();
+            mPopWindow.showAtLocation(layoutBottom, Gravity.NO_GRAVITY, 0, pt[1]-height);
+            cartCustomView.initView();
+            cartCustomView.setOnClickListener(new CartCustomView.IClick() {
+                @Override
+                public void clickCB(int value) {
+                    //value
+                }
+            });
+        }
+    }
+
 }

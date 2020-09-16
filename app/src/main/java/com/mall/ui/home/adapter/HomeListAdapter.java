@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.view.Gravity;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -156,6 +157,7 @@ public class HomeListAdapter extends BaseMultiItemQuickAdapter<HomeBean.HomeList
                 tab.setText(item.getName());
                 Drawable icon = context.getDrawable(R.mipmap.ic_channel1);
                 tab.setCompoundDrawables(null,icon,null,null);
+                tab.setTag(item.getId());
                 layoutChannels.addView(tab);
             }
         }

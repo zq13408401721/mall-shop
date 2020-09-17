@@ -75,6 +75,7 @@ public class HttpManager {
         OkHttpClient client = new OkHttpClient.Builder()
                 .cache(cache)
                 .addInterceptor(new LoggingInterceptor())
+                .addInterceptor(new HeaderInterceptor())
                 .addNetworkInterceptor(new NetInterceptor())
                 .connectTimeout(60, TimeUnit.SECONDS)
                 .readTimeout(10, TimeUnit.SECONDS)
@@ -106,9 +107,25 @@ public class HttpManager {
     }
 
     /**
-     * 添加头拦截器
+     * 添加请求头
      */
     static class HeaderInterceptor implements Interceptor{
+
+        @Override
+        public Response intercept(Chain chain) throws IOException {
+            String token = SpUtils.getInstance().getString("token");
+            Request.Builder builder = chain.request().newBuilder();
+            builder.addHeader("token",token);
+            Request request = builder.build();
+            Response response = chain.proceed(request);
+            return response;
+        }
+    }
+
+    /**
+     * 添加头拦截器
+     */
+    static class SignInterceptor implements Interceptor{
 
         @Override
         public Response intercept(Chain chain) throws IOException {

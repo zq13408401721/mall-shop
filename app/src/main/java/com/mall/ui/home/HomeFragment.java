@@ -100,7 +100,7 @@ public class HomeFragment extends BaseFragment<ImodelHome.IPersenter> implements
                         HomeBean.DataBean.HotGoodsListBean bean = (HomeBean.DataBean.HotGoodsListBean) list.get(position).data;
                         intent.putExtra("id",bean.getId());
                         intent.setClass(context, DetailGoodActivity.class);
-                        startActivity(intent);
+                        startActivityForResult(intent,2000);
                         break;
                     case HomeBean.ITEM_TYPE_TITLE:
                         break;
@@ -114,6 +114,11 @@ public class HomeFragment extends BaseFragment<ImodelHome.IPersenter> implements
             }
         });
 
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override

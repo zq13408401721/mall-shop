@@ -75,6 +75,15 @@ public class CartCustomView extends LinearLayout implements View.OnClickListener
     }
 
     /**
+     * 设置值
+     * @param num
+     */
+    public void setValue(int num){
+        this.value = num;
+        txtValue.setText(this.value);
+    }
+
+    /**
      * 设置接口回调
      * @param cb
      */

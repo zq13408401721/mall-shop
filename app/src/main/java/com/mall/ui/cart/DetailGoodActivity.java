@@ -1,5 +1,6 @@
 package com.mall.ui.cart;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Display;
@@ -14,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,10 +24,12 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.mall.R;
 import com.mall.base.BaseActivity;
+import com.mall.bean.AddCartInfoBean;
 import com.mall.bean.GoodDetailBean;
 import com.mall.common.CartCustomView;
 import com.mall.interfaces.cart.ICart;
 import com.mall.persenter.cart.CartPersenter;
+import com.mall.utils.SpUtils;
 import com.mall.utils.SystemUtils;
 import com.youth.banner.Banner;
 import com.youth.banner.adapter.BannerImageAdapter;
@@ -38,7 +42,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class DetailGoodActivity extends BaseActivity<ICart.IPersenter> implements ICart.IView {
+public class DetailGoodActivity extends BaseActivity<ICart.IPersenter> implements ICart.IView, View.OnClickListener {
     @BindView(R.id.layout_back)
     RelativeLayout layoutBack;
     @BindView(R.id.txt_title)
@@ -75,6 +79,10 @@ public class DetailGoodActivity extends BaseActivity<ICart.IPersenter> implement
     TextView txtBuy;
     @BindView(R.id.layout_bottom)
     LinearLayout layoutBottom;
+    @BindView(R.id.txt_addCart)
+    TextView txtAddCart;
+    @BindView(R.id.txt_count)
+    TextView txtCount;
 
     private String html = "<html>\n" +
             "            <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no\"/>\n" +
@@ -95,6 +103,9 @@ public class DetailGoodActivity extends BaseActivity<ICart.IPersenter> implement
             "        </html>";
     private PopupWindow mPopWindow;
 
+    //单钱商品信息
+    private GoodDetailBean goodDetailBean;
+    private int currentNum = 1;
 
     @Override
     protected int getLayout() {
@@ -109,6 +120,10 @@ public class DetailGoodActivity extends BaseActivity<ICart.IPersenter> implement
                 showPopWindow();
             }
         });
+
+        layoutCollect.setOnClickListener(this);
+        txtAddCart.setOnClickListener(this);
+        layoutCart.setOnClickListener(this);
     }
 
     @Override
@@ -232,10 +247,59 @@ public class DetailGoodActivity extends BaseActivity<ICart.IPersenter> implement
             cartCustomView.setOnClickListener(new CartCustomView.IClick() {
                 @Override
                 public void clickCB(int value) {
-                    //value
+                    currentNum = value;
                 }
             });
         }
     }
 
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.layout_collect:
+                break;
+            case R.id.txt_addCart:
+                addCart();
+                break;
+            case R.id.layout_cart:
+                finish();
+                break;
+        }
+    }
+
+    /**
+     * 添加到购物车
+     */
+    private void addCart(){
+        boolean islogin = SpUtils.getInstance().getBoolean("token");
+        if(islogin){
+            //判断当前的规格弹框是否打开
+            if(mPopWindow != null && mPopWindow.isShowing()){
+                //添加到购物车的操作
+                if(goodDetailBean.getData().getProductList().size() > 0){
+                    int goodsId = goodDetailBean.getData().getProductList().get(0).getGoods_id();
+                    int productId = goodDetailBean.getData().getProductList().get(0).getId();
+                    persenter.addCart(goodsId,currentNum,productId);
+                    mPopWindow.dismiss();
+                    mPopWindow = null;
+                }else{
+                    Toast.makeText(this,"没有产品数据",Toast.LENGTH_SHORT).show();
+                }
+            }else{
+                showPopWindow();
+            }
+        }else{
+            Toast.makeText(this, "未登录", Toast.LENGTH_SHORT).show();
+            //Intent跳转到登录
+
+        }
+    }
+
+    //添加到购物车返回
+    @Override
+    public void addCartInfoReturn(AddCartInfoBean result) {
+        int count = result.getData().getCartTotal().getGoodsCount();
+        txtCount.setText(String.valueOf(count));
+    }
 }

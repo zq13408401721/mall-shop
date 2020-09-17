@@ -206,6 +206,7 @@
                 android:src="@mipmap/ic_cart"
                 android:layout_centerInParent="true"/>
             <TextView
+                android:id="@+id/txt_count"
                 android:layout_width="@dimen/dp_20"
                 android:layout_height="@dimen/dp_20"
                 android:textSize="@dimen/sp_12"
@@ -229,6 +230,7 @@
             android:background="@drawable/shape_txt_border_black"
             android:layout_weight="1"/>
         <TextView
+            android:id="@+id/txt_addCart"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_alignRight="@id/img_cart"

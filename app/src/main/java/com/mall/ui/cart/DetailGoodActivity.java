@@ -1,6 +1,7 @@
 package com.mall.ui.cart;
 
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Display;
@@ -139,6 +140,7 @@ public class DetailGoodActivity extends BaseActivity<ICart.IPersenter> implement
 
     @Override
     public void getGoodDetailReturn(GoodDetailBean result) {
+        goodDetailBean = result;
         //banner刷新
         updateBanner(result.getData().getGallery());
         //评论
@@ -224,8 +226,9 @@ public class DetailGoodActivity extends BaseActivity<ICart.IPersenter> implement
             View contentView = LayoutInflater.from(this).inflate(R.layout.layout_popwindow_good, null);
             int height = SystemUtils.dp2px(this,250);
             mPopWindow = new PopupWindow(contentView, LinearLayout.LayoutParams.MATCH_PARENT,height);
-            mPopWindow.setFocusable(true);
-            mPopWindow.setOutsideTouchable(true);
+            mPopWindow.setBackgroundDrawable(new BitmapDrawable());
+            mPopWindow.setFocusable(false);
+            mPopWindow.setOutsideTouchable(false);
             mPopWindow.setContentView(contentView);
             contentView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
             CartCustomView cartCustomView = contentView.findViewById(R.id.layout_cartwindow);
@@ -263,6 +266,7 @@ public class DetailGoodActivity extends BaseActivity<ICart.IPersenter> implement
                 addCart();
                 break;
             case R.id.layout_cart:
+                setResult(1000);
                 finish();
                 break;
         }
@@ -272,12 +276,12 @@ public class DetailGoodActivity extends BaseActivity<ICart.IPersenter> implement
      * 添加到购物车
      */
     private void addCart(){
-        boolean islogin = SpUtils.getInstance().getBoolean("token");
-        if(islogin){
+        String token = SpUtils.getInstance().getString("token");
+        if(!TextUtils.isEmpty(token)){
             //判断当前的规格弹框是否打开
             if(mPopWindow != null && mPopWindow.isShowing()){
                 //添加到购物车的操作
-                if(goodDetailBean.getData().getProductList().size() > 0){
+                if(goodDetailBean != null && goodDetailBean.getData().getProductList().size() > 0){
                     int goodsId = goodDetailBean.getData().getProductList().get(0).getGoods_id();
                     int productId = goodDetailBean.getData().getProductList().get(0).getId();
                     persenter.addCart(goodsId,currentNum,productId);

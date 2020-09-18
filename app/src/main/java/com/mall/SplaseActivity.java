@@ -7,6 +7,7 @@ import com.mall.base.BaseActivity;
 import com.mall.base.BasePermissionActivity;
 import com.mall.interfaces.IBasePersenter;
 import com.mall.utils.SpUtils;
+import com.net.MyDebug;
 
 public class SplaseActivity extends BasePermissionActivity {
     @Override
@@ -20,6 +21,7 @@ public class SplaseActivity extends BasePermissionActivity {
         Intent intent = new Intent(this,MainActivity.class);
         startActivity(intent);
         Log.i("tag","init");
+        MyDebug.print(this,"test");
     }
 
     @Override

@@ -54,6 +54,7 @@ public class CartListAdapter extends BaseAdapter {
         txtName.setText(bean.getGoods_name());
         txtNumber.setText("X"+bean.getNumber());
         txtPrice.setText("￥"+bean.getRetail_price());
+        cartCustomView.initView();
         cartCustomView.setValue(bean.getNumber());
         cartCustomView.setOnClickListener(new CartCustomView.IClick() {
             @Override
@@ -61,11 +62,12 @@ public class CartListAdapter extends BaseAdapter {
                 bean.setNumber(value);
             }
         });
-        checkBox.setChecked(bean.select);
+        //checkBox.setChecked(bean.select);
+        checkBox.setSelected(bean.select);
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                bean.select = isChecked;
+                bean.select = !bean.select;
                 if(click != null){
                     click.checkChange();
                 }

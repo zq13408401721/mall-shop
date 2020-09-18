@@ -1,6 +1,7 @@
 package com.mall.ui.cart;
 
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.FrameLayout;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
@@ -32,7 +33,7 @@ public class CartFragment extends BaseFragment<ICart.ICartPersenter> implements 
     @BindView(R.id.layout_top)
     FrameLayout layoutTop;
     @BindView(R.id.radio_select)
-    RadioButton radioSelect;
+    CheckBox radioSelect;
     @BindView(R.id.txt_allPrice)
     TextView txtAllPrice;
     @BindView(R.id.txt_edit)
@@ -41,6 +42,8 @@ public class CartFragment extends BaseFragment<ICart.ICartPersenter> implements 
     TextView txtSubmit;
     @BindView(R.id.layout_bottom)
     RelativeLayout layoutBottom;
+    @BindView(R.id.txt_selectAll)
+    TextView txtSelectAll;
 
 
     CartListAdapter cartListAdapter;
@@ -60,15 +63,16 @@ public class CartFragment extends BaseFragment<ICart.ICartPersenter> implements 
         cartListAdapter = new CartListAdapter(context,list);
         recyclerview.setLayoutManager(new LinearLayoutManager(context));
         recyclerview.setAdapter(cartListAdapter);
-        radioSelect.setText("全选(0)");
+        txtSelectAll.setText("全选(0)");
         cartListAdapter.setOnItemCheckBoxClickListener(new CartListAdapter.CheckBoxClick() {
             @Override
             public void checkChange() {
                 //判断当前是否全选
                 boolean bool = CheckSelectAll();
-                radioSelect.setText("全选("+allNumber+")");
+                txtSelectAll.setText("全选("+allNumber+")");
                 txtAllPrice.setText("￥"+allPrice);
-                radioSelect.setChecked(bool);
+                radioSelect.setSelected(bool);
+                cartListAdapter.notifyDataSetChanged();
             }
         });
     }
@@ -110,8 +114,9 @@ public class CartFragment extends BaseFragment<ICart.ICartPersenter> implements 
      */
     private void selectAll(){
         //设置当前是否是权限
-        resetSelect(radioSelect.isChecked());
-        radioSelect.setText("全选("+allNumber+")");
+        resetSelect(!radioSelect.isChecked());
+        radioSelect.setSelected(!radioSelect.isChecked());
+        txtSelectAll.setText("全选("+allNumber+")");
         txtAllPrice.setText("￥"+allPrice);
         cartListAdapter.notifyDataSetChanged();
     }
@@ -171,6 +176,8 @@ public class CartFragment extends BaseFragment<ICart.ICartPersenter> implements 
      * @param bool
      */
     private void resetSelect(boolean bool){
+        allNumber = 0;
+        allPrice = 0;
         for(CartBean.DataBean.CartListBean item:list){
             item.select = bool;
             if(bool){
@@ -203,6 +210,8 @@ public class CartFragment extends BaseFragment<ICart.ICartPersenter> implements 
      * @return
      */
     private boolean CheckSelectAll(){
+        allNumber = 0;
+        allPrice = 0;
         boolean isSelectAll = true;
         for(CartBean.DataBean.CartListBean item:list){
             if(item.select){

@@ -80,7 +80,7 @@ public class CartCustomView extends LinearLayout implements View.OnClickListener
      */
     public void setValue(int num){
         this.value = num;
-        txtValue.setText(this.value);
+        txtValue.setText(String.valueOf(this.value));
     }
 
     /**

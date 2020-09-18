@@ -33,11 +33,11 @@ public interface Imall {
     Flowable<AddCartInfoBean> addCart(@Field("goodsId") int goodsId,@Field("number") int number, @Field("productId") int productId);
 
     @GET("cart/index")
-    @FormUrlEncoded
     Flowable<CartBean> getCartList();
 
     //删除购物车
     @POST("cart/delete")
+    @FormUrlEncoded
     Flowable<DeleteCartBean> cartDelete(@Field("productIds") String productIds);
 
 }

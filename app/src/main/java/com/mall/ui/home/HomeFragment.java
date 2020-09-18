@@ -117,11 +117,6 @@ public class HomeFragment extends BaseFragment<ImodelHome.IPersenter> implements
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-    }
-
-    @Override
     protected ImodelHome.IPersenter initPersenter() {
         return new HomePresenter();
     }

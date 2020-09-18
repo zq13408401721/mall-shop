@@ -22,4 +22,8 @@
         android:name="com.mall.ui.special.SpecialFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_special" />
+    <fragment
+        android:id="@+id/navigation_cart"
+        android:name="com.mall.ui.cart.CartFragment"
+        android:label="@string/title_cart"/>
 </navigation>

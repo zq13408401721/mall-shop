@@ -1,6 +1,7 @@
 package com.mall.model.api;
 
 import com.mall.bean.AddCartInfoBean;
+import com.mall.bean.AdressBean;
 import com.mall.bean.CartBean;
 import com.mall.bean.DeleteCartBean;
 import com.mall.bean.GoodDetailBean;
@@ -39,5 +40,8 @@ public interface Imall {
     @POST("cart/delete")
     @FormUrlEncoded
     Flowable<DeleteCartBean> cartDelete(@Field("productIds") String productIds);
+
+    @GET("region/list")
+    Flowable<AdressBean> getAdressById(@Query("parentId") int parentId);
 
 }

@@ -1,6 +1,7 @@
 package com.mall.interfaces.cart;
 
 import com.mall.bean.AddCartInfoBean;
+import com.mall.bean.AdressBean;
 import com.mall.bean.CartBean;
 import com.mall.bean.DeleteCartBean;
 import com.mall.bean.GoodDetailBean;
@@ -42,5 +43,14 @@ public interface ICart {
         //删除购物车数据
         void deleteCartList(String productIds);
 
+    }
+
+
+    interface IAdressView extends IBaseView{
+        void getAdressByIdReturn(AdressBean result);
+    }
+
+    interface IAdressPersenter extends IBasePersenter<IAdressView>{
+        void getAdressById(int parentId);
     }
 }

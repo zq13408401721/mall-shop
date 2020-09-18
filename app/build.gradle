@@ -81,4 +81,8 @@ dependencies {
 
     implementation 'com.github.zq13408401721:net:1.0'
 
+    implementation 'liji.library.dev:citypickerview:5.2.2'
+
+    implementation 'com.weigan:loopView:0.2.2'
+
 }

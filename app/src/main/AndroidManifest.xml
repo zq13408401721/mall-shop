@@ -27,6 +27,7 @@
         </activity>
         <activity android:name=".MainActivity"/>
         <activity android:name=".ui.cart.DetailGoodActivity"/>
+        <activity android:name=".ui.cart.AdressActivity"/>
     </application>
 
 </manifest>

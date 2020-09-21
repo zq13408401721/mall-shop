@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.github.chrisbanes.photoview.PhotoView;
@@ -30,6 +31,7 @@ public class ImageFragment extends Fragment {
     private String mParam2;
 
     private PhotoView photoView;
+    private TextView txtName;
 
     public ImageFragment() {
         // Required empty public constructor
@@ -69,8 +71,10 @@ public class ImageFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         photoView = view.findViewById(R.id.photoView);
+        txtName = view.findViewById(R.id.txt_name);
 
-        Glide.with(this).load(ARG_PARAM1).into(photoView);
+        Glide.with(this).load(mParam1).into(photoView);
+        txtName.setText(mParam1);
 
     }
 }

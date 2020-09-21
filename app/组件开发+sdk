@@ -1,0 +1,34 @@
+1. 创建module完成对应的功能
+
+2. module中提供给外部隐式打开的activity
+
+3. 在清单文件中设置，外部访问的activity的属性
+    如：          <intent-filter>
+                       //提供给外部访问的标记
+                      <action android:name="imagepreview"/>
+                      <category android:name="android.intent.category.DEFAULT"/>
+                  </intent-filter>
+
+4. 在module对应的build.gradle文件中设置编译关联（github）
+apply plugin: 'com.github.dcendents.android-maven'
+group='com.github.zq13408401721'
+
+5.在提供module的项目build.gradle文件中设置编译环境
+dependencies {
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
+}
+
+6.提交module项目到github
+
+7.在github项目管理中，采用release发布该项目
+
+8.拷贝github项目中的https的地址到 https://jitpack.io网站上，点击look up把github的项目发布版本，同步到jitpack网站上
+
+9.在新的项目中通过jitpack提供的依赖，导入到build开发版，注意：需要在新的项目中build.gradle文件中加入，导入依赖的指定仓库路径
+allprojects {
+    repositories {
+        maven { url 'https://jitpack.io' }
+    }
+}
+
+

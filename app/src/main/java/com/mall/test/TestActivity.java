@@ -1,18 +1,22 @@
 package com.mall.test;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.app.bigimage.ICallback;
+import com.app.bigimage.ImagePreviewActivity;
 import com.mall.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TestActivity extends AppCompatActivity {
+public class TestActivity extends AppCompatActivity implements ICallback {
 
     List<String> list;
     Button btnClick;
@@ -38,6 +42,30 @@ public class TestActivity extends AppCompatActivity {
         intent.setAction("imagepreview");
         intent.putStringArrayListExtra("imgs", (ArrayList<String>) list);
         intent.putExtra("pos",1);
-        startActivity(intent);
+        startActivityForResult(intent,1000);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == ImagePreviewActivity.CODE_RESULT){
+            if(data != null){
+                Log.i("path",data.getStringExtra("path"));
+            }
+        }
+    }
+
+    /**
+     * 组件的接口回调
+     * @param bundle
+     */
+    @Override
+    public void success(Bundle bundle) {
+        Log.i("success","ok");
+    }
+
+    @Override
+    public void fail(String err) {
+        Log.i("fail",err);
     }
 }

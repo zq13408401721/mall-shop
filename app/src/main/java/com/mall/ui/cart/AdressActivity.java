@@ -112,13 +112,20 @@ public class AdressActivity extends BaseActivity<ICart.IAdressPersenter> impleme
                     List<AdressBean.DataBean> proviceList = addressMap.get(1); //key为1固定为省的数据
                     AdressBean.DataBean dataBean = proviceList.get(index);
                     curProvinceId = dataBean.getId();
-                    persenter.getAdressById(curProvinceId);
+
                     List<String> items = new ArrayList<>();
                     items.add("请选择");
-                    city.setItems(items);
                     txtProvince.setText(dataBean.getName());
-                    txtCity.setText("请选择城市");
-                    txtArea.setText("请选中区域");
+                    //判断当前的缓存中是否有对应的城市数据
+                    List<AdressBean.DataBean> curCitys = addressMap.get(curProvinceId);
+                    if(curCitys != null && curCitys.size() > 0){
+                        items = getAdressStrings(curCitys);
+                        city.setItems(items);
+                    }else{
+                        persenter.getAdressById(curProvinceId);
+                        txtCity.setText("请选择城市");
+                        txtArea.setText("请选中区域");
+                    }
                 }
             });
 
@@ -189,6 +196,7 @@ public class AdressActivity extends BaseActivity<ICart.IAdressPersenter> impleme
                 curProvinceId = list.get(0).getId();
                 txtProvince.setText(list.get(0).getName());
                 province.setItems(adresses);
+                province.setCurrentPosition(0);
             }
         }else if(type == 2){
             //刷新市的数据
@@ -196,6 +204,7 @@ public class AdressActivity extends BaseActivity<ICart.IAdressPersenter> impleme
                 curCityId = list.get(0).getId();
                 txtCity.setText(list.get(0).getName());
                 city.setItems(adresses);
+                city.setCurrentPosition(0);
             }
         }else{
             //区
@@ -203,6 +212,7 @@ public class AdressActivity extends BaseActivity<ICart.IAdressPersenter> impleme
                 curAreaId = list.get(0).getId();
                 txtArea.setText(list.get(0).getName());
                 area.setItems(adresses);
+                area.setCurrentPosition(0);
             }
         }
     }

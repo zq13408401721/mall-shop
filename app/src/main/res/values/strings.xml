@@ -8,7 +8,7 @@
     <string name="word_price_brand">$元起</string>
     <string name="good_detail_h5">
         <html>
-            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
             <head>
                 <style>
                     p{

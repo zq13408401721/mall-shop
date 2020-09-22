@@ -7,12 +7,7 @@ import com.mall.bean.DeleteCartBean;
 import com.mall.bean.GoodDetailBean;
 import com.mall.bean.HomeBean;
 
-import org.intellij.lang.annotations.Flow;
-
 import io.reactivex.Flowable;
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Response;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;

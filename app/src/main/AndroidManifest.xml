@@ -8,7 +8,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:name=".app.MyApp"
+        android:name="com.mall.app.MyApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -16,10 +16,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".test.TestActivity"
-            android:process="Test"></activity>
+        <activity android:name="com.mall.test.ServiceActivity"></activity>
         <activity
-            android:name=".SplaseActivity"
+            android:name="com.mall.test.TestActivity"
+            android:process=".Test" />
+        <activity
+            android:name="com.mall.SplaseActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,9 +29,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
-        <activity android:name=".ui.cart.DetailGoodActivity" />
-        <activity android:name=".ui.cart.AdressActivity" />
+        <activity android:name="com.mall.MainActivity" />
+        <activity android:name="com.mall.ui.cart.DetailGoodActivity" />
+        <activity android:name="com.mall.ui.cart.AdressActivity" />
+
+        <!-- 开发进程dataserver -->
+        <service
+            android:name="com.app.bigimage.DataService"
+            android:exported="true"
+            android:process=":dataservice">
+            <intent-filter>
+                <action android:name="com.mall.myservice" />
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

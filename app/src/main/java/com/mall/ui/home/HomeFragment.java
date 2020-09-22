@@ -4,9 +4,6 @@ import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 
-import androidx.annotation.Nullable;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,7 +11,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.mall.R;
 import com.mall.base.BaseFragment;
 import com.mall.bean.HomeBean;
-import com.mall.interfaces.IBasePersenter;
 import com.mall.interfaces.home.ImodelHome;
 import com.mall.persenter.home.HomePresenter;
 import com.mall.ui.cart.DetailGoodActivity;

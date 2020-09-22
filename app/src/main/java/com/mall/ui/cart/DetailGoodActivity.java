@@ -1,14 +1,10 @@
 package com.mall.ui.cart;
 
-import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
-import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -41,7 +37,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class DetailGoodActivity extends BaseActivity<ICart.IPersenter> implements ICart.IView, View.OnClickListener {
     @BindView(R.id.layout_back)

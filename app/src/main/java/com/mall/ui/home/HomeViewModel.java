@@ -1,26 +1,14 @@
 package com.mall.ui.home;
 
 
-import android.text.TextUtils;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.google.gson.Gson;
 import com.mall.bean.HomeBean;
 import com.mall.common.CommonSubscriber;
 import com.mall.model.HttpManager;
-import com.mall.model.api.Imall;
 import com.mall.utils.RxUtils;
-
-import java.io.IOException;
-import java.lang.reflect.Type;
-
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class HomeViewModel extends ViewModel {
     //MutableLvieData 表示带有生命周期

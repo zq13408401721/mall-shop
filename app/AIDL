@@ -1,0 +1,70 @@
+AIDL实现进程通信
+
+1.创建aidl接口通信的bean类
+    注：目录和项目提供bean类的目录和名字必须一致
+    如：parcelable StudentBean;
+
+2.创建aidl接口
+    注：定义给外包调用的接口，如果使用到bean类，需要手动导入该类的完整路径。
+    如：import com.app.bigimage.beans.StudentBean;
+
+3.通过build或者make project构建项目，查看是否生成对应的aidl接口类
+    注：查看生成的接口类的目录，build/generated/aidl_source_output_dir/****
+
+4.创建service在service中实现第2步创建的接口
+    如：StudentController.Stub stub = new StudentController.Stub() {
+              @Override
+              public List<StudentBean> getStudents() throws RemoteException {
+                  return students;
+              }
+
+              @Override
+              public void addStudent(StudentBean student) throws RemoteException {
+                  Log.i("process:", String.valueOf(Process.myPid()));
+                  students.add(student);
+              }
+          };
+
+5.通过service的onbind提供第4步创建的ibinder
+    如：@Override
+          public IBinder onBind(Intent intent) {
+              return stub;
+          }
+
+
+6.在项目清单文件中配置service
+    如：<!-- 开发进程dataserver -->
+             <service
+                 android:name="com.app.bigimage.DataService"
+                 android:exported="true"
+                 android:process=":dataservice">
+                 <intent-filter>
+                     <action android:name="com.mall.myservice" />
+                     <category android:name="android.intent.category.DEFAULT"/>
+                 </intent-filter>
+             </service>
+
+7.通过intent隐式跳转打开service
+    如： Intent intent = new Intent();
+        intent.setAction("com.mall.myservice");
+        intent.setPackage(getPackageName());
+        bindService(intent,conn, Context.BIND_AUTO_CREATE);
+
+8.创建打开服务的监听ServiceConnection,在链接成功的方法中获取定义的aidl接口
+    如: private ServiceConnection conn = new ServiceConnection() {
+               @Override
+               public void onServiceConnected(ComponentName name, IBinder service) {
+                   studentController = StudentController.Stub.asInterface(service);
+                   isConnect = true;
+               }
+
+               @Override
+               public void onServiceDisconnected(ComponentName name) {
+                   isConnect = false;
+               }
+           };
+
+9.通过第8步中的接口调用对应逻辑方法
+
+
+

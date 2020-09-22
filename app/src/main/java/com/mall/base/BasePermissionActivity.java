@@ -9,21 +9,14 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Process;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
-import com.bumptech.glide.load.resource.gif.GifDrawableEncoder;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-
-import cn.jzvd.BuildConfig;
 
 /**
  * 权限的基类

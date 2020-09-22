@@ -8,6 +8,8 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.io.IOError;
+
 import static org.junit.Assert.*;
 
 /**
@@ -22,5 +24,20 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
         assertEquals("com.mall", appContext.getPackageName());
+
+        test();
+    }
+
+    private String test(){
+        String a="x";
+        try {
+            a = "1";
+            return a;
+        }catch (IOError e){
+            System.out.println(e.getMessage());
+        }finally {
+            a = "y";
+        }
+        return a;
     }
 }

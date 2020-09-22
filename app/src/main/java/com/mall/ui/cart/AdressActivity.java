@@ -1,7 +1,6 @@
 package com.mall.ui.cart;
 
 import android.graphics.drawable.BitmapDrawable;
-import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,22 +11,18 @@ import android.widget.TextView;
 import com.mall.R;
 import com.mall.base.BaseActivity;
 import com.mall.bean.AdressBean;
-import com.mall.common.CartCustomView;
-import com.mall.interfaces.IBasePersenter;
 import com.mall.interfaces.cart.ICart;
 import com.mall.persenter.cart.AdressPersenter;
 import com.mall.utils.SystemUtils;
 import com.weigan.loopview.LoopView;
 import com.weigan.loopview.OnItemSelectedListener;
 
-import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class AdressActivity extends BaseActivity<ICart.IAdressPersenter> implements ICart.IAdressView {

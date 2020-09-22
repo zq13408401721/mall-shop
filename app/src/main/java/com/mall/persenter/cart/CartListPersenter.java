@@ -1,7 +1,6 @@
 package com.mall.persenter.cart;
 
 import com.mall.base.BasePersenter;
-import com.mall.bean.AddCartInfoBean;
 import com.mall.bean.CartBean;
 import com.mall.bean.DeleteCartBean;
 import com.mall.common.CommonSubscriber;

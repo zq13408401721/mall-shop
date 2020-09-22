@@ -2,7 +2,6 @@ package com.mall.persenter.cart;
 
 import com.mall.base.BasePersenter;
 import com.mall.bean.AdressBean;
-import com.mall.bean.CartBean;
 import com.mall.common.CommonSubscriber;
 import com.mall.interfaces.cart.ICart;
 import com.mall.model.HttpManager;
